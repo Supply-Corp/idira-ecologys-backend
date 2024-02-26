@@ -9,3 +9,86 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+enum Role {
+  ADMIN
+  USER
+  SEDE
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  name     String
+  password String
+  role     Role
+  sede     Sedes? @relation(fields: [sedeId], references: [id])
+  sedeId   Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Representative {
+  id        Int      @id @default(autoincrement())
+  name      String
+  dni       String
+  email     String?
+  company   Company  @relation(fields: [companyId], references: [id])
+  companyId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model GeneralManager {
+  id        Int      @id @default(autoincrement())
+  name      String
+  dni       String
+  email     String?
+  company   Company  @relation(fields: [companyId], references: [id])
+  companyId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("general_manager")
+}
+
+model Supervisor {
+  id        Int      @id @default(autoincrement())
+  name      String
+  dni       String
+  email     String?
+  company   Company  @relation(fields: [companyId], references: [id])
+  companyId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Company {
+  id             Int              @id @default(autoincrement())
+  name           String
+  email          String
+  razon_social   String
+  ruc            String
+  distrito       String
+  provincia      String
+  address        String
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  Sedes          Sedes[]
+  Representative Representative[]
+  GeneralManager GeneralManager[]
+  Supervisor     Supervisor[]
+}
+
+model Sedes {
+  id        Int      @id @default(autoincrement())
+  name      String
+  address   String
+  email     String?
+  Company   Company? @relation(fields: [companyId], references: [id])
+  companyId Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  User      User[]
+}
