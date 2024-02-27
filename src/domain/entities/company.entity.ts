@@ -1,3 +1,6 @@
+import { GeneralManagerEntity } from "./general-manager.entity";
+import { RepresentativeEntity } from "./representative.entity";
+import { SupervisorEntity } from "./supervisor.entity";
 
 export class CompanyEntity {
     
@@ -10,6 +13,10 @@ export class CompanyEntity {
         public readonly distrito: string,
         public readonly provincia: string,
         public readonly address: string,
+
+        public readonly Representative?: RepresentativeEntity,
+        public readonly GeneralManager?: GeneralManagerEntity,
+        public readonly Supervisor?: SupervisorEntity,
 
         public readonly createdAt?: Date,
         public readonly updatedAt?: Date
@@ -26,6 +33,11 @@ export class CompanyEntity {
             distrito, 
             provincia, 
             address,
+
+            Representative,
+            GeneralManager,
+            Supervisor,
+
             createdAt,
             updatedAt
         } = object;
@@ -48,6 +60,11 @@ export class CompanyEntity {
             distrito,
             provincia,
             address,
+
+            Representative,
+            GeneralManager,
+            Supervisor,
+            
             updatedAt,
             createdAt
         );
