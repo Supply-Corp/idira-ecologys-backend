@@ -29,8 +29,9 @@ export class RepresentativeEntity {
         return new RepresentativeEntity(
             id,
             name,
-            email,
             dni,
+
+            email,
             updatedAt,
             createdAt
         );
