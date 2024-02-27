@@ -101,6 +101,9 @@ export class CreateCompanyDto {
             isEmail: {
                 bail: true,
                 errorMessage: 'Email representante inválido'
+            },
+            optional: {
+                options:  { nullable: true, checkFalsy: true }
             }
         },
         name_general_manager: {
@@ -122,6 +125,9 @@ export class CreateCompanyDto {
             isEmail: {
                 bail: true,
                 errorMessage: 'Email gerente inválido'
+            },
+            optional: {
+                options:  { nullable: true, checkFalsy: true }
             }
         },
         name_supervisor: {
@@ -143,12 +149,15 @@ export class CreateCompanyDto {
             isEmail: {
                 bail: true,
                 errorMessage: 'Email supervisor inválido'
+            },
+            optional: {
+                options:  { nullable: true, checkFalsy: true }
             }
         },
     };
 
     static async create(req: Request): Promise<[FieldQuery[]?, CreateCompanyDto?]> {
-        
+
         const {
             name,
             email,
