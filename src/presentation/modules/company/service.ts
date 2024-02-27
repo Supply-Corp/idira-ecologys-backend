@@ -1,5 +1,5 @@
 import { prisma } from "../../../configuration";
-import { CreateCompanyDto, CustomError } from "../../../domain";
+import { CreateCompanyDto, CustomError, UpdateCompanyDto } from "../../../domain";
 
 export class CompanyService {
 
@@ -67,8 +67,97 @@ export class CompanyService {
     });
     
     return {
-      msg: 'Empresa registrada con éxito'
+      ...company
     };
   }
 
+  async update(dto: UpdateCompanyDto) {
+
+    const {
+      id,
+      name,
+      email,
+      razon_social,
+      ruc,
+      distrito,
+      provincia,
+      address,
+
+      name_representative,
+      dni_representative,
+      email_representative,
+
+      name_general_manager,
+      dni_general_manager,
+      email_general_manager,
+
+      name_supervisor,
+      dni_supervisor,
+      email_supervisor
+    } = dto;
+
+    const find = await prisma.company.findFirst({ where: { id } });
+    if( !find ) throw CustomError.notFound(`No existe la empresa ${ id }`);
+
+    const companyUpdate = await prisma.company.update({
+      where: { id },
+      data: {
+        name: name ? name : find.name,
+        email: email ? email : find.email,
+        razon_social: razon_social ? razon_social : find.razon_social,
+        ruc: ruc ? ruc : find.ruc,
+        distrito: distrito ? distrito : find.distrito,
+        provincia: provincia ? provincia : find.provincia,
+        address: address ? address : find.address,
+      },
+    });
+    if( !companyUpdate ) throw CustomError.badRequest('Error al actualizar la empresa');
+
+    const representative = await prisma.representative.findFirst({
+      where: { companyId: id },
+    });
+    if (representative) {
+      await prisma.representative.update({
+        where: { id: representative.id },
+        data: {
+          name: name_representative ? name_representative : representative.name,
+          dni: dni_representative ? dni_representative : representative.dni,
+          email: email_representative ? email_representative : representative.email,
+        },
+      });
+    }
+
+    const manager = await prisma.generalManager.findFirst({
+      where: { companyId: id },
+    });
+    if (manager) {
+      await prisma.generalManager.update({
+        where: { id: manager.id },
+        data: {
+          name: name_general_manager ? name_general_manager : manager.name,
+          dni: dni_general_manager ? dni_general_manager : manager.dni,
+          email: email_general_manager ? email_general_manager : manager.email,
+        },
+      });
+    }
+    
+    const supervisor = await prisma.supervisor.findFirst({
+      where: { companyId: id },
+    });
+    if (supervisor) {
+      await prisma.supervisor.update({
+        where: { id: supervisor.id },
+        data: {
+          name: name_supervisor ? name_supervisor : supervisor.name,
+          dni: dni_supervisor ? dni_supervisor : supervisor.dni,
+          email: email_supervisor ? email_supervisor : supervisor.email,
+        },
+      });
+    }
+
+    return {
+      ...companyUpdate
+    }
+
+  }
 }
