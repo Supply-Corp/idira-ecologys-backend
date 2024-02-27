@@ -10,6 +10,7 @@ export class CompanyRoutes {
         const controller = new CompanyController( service );
 
         router.post('/', controller.store);
+        router.put('/:id', controller.update);
 
         return router;
     }
