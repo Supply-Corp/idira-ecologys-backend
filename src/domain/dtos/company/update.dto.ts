@@ -31,31 +31,17 @@ export class UpdateCompanyDto {
 
     private static schema: Schema = {
         id: {
-            trim: true,
             notEmpty: {
                 bail: true,
                 errorMessage: 'Id es requerido'
             },
-            optional: {
-                options:  { nullable: true, checkFalsy: true }
-            }
         },
         name: {
-            trim: true,
-            notEmpty: {
-                bail: true,
-                errorMessage: 'Nombre es requerido'
-            },
             optional: {
                 options:  { nullable: true, checkFalsy: true }
             }
         },
         email: {
-            trim: true,
-            notEmpty: {
-                bail: true,
-                errorMessage: "Email es requerido",
-            },
             isEmail: {
                 bail: true,
                 errorMessage: "Email es inválido",
@@ -65,140 +51,82 @@ export class UpdateCompanyDto {
             }
         },
         razon_social: {
-            trim: true,
-            notEmpty: {
-                bail: true,
-                errorMessage: 'Razón social es requerido'
-            },
             optional: {
                 options:  { nullable: true, checkFalsy: true }
             }
         },
         ruc: {
-            trim: true,
-            notEmpty: {
-                bail: true,
-                errorMessage: 'Ruc es requerido'
-            },
             optional: {
                 options:  { nullable: true, checkFalsy: true }
             }
         },
         distrito: {
-            trim: true,
-            notEmpty: {
-                bail: true,
-                errorMessage: 'Distrito es requerido'
-            },
             optional: {
                 options:  { nullable: true, checkFalsy: true }
             }
         },
         provincia: {
-            trim: true,
-            notEmpty: {
-                bail: true,
-                errorMessage: 'Provincia es requerido'
-            },
             optional: {
                 options:  { nullable: true, checkFalsy: true }
             }
         },
         address: {
-            trim: true,
-            notEmpty: {
-                bail: true,
-                errorMessage: 'Dirección es requerido'
-            },
             optional: {
                 options:  { nullable: true, checkFalsy: true }
             }
         },
         name_representative: {
-            trim: true,
-            notEmpty: {
-                bail: true,
-                errorMessage: 'Nombre representante es requerido'
-            },
             optional: {
                 options:  { nullable: true, checkFalsy: true }
             }
         },
         dni_representative: {
-            trim: true,
-            notEmpty: {
-                bail: true,
-                errorMessage: 'Dni representante es requerido'
-            },
             optional: {
                 options:  { nullable: true, checkFalsy: true }
             }
         },
         email_representative: {
-            trim: true,
             isEmail: {
                 bail: true,
-                errorMessage: 'Email representante inválido'
+                errorMessage: "Email es inválido",
             },
             optional: {
                 options:  { nullable: true, checkFalsy: true }
             }
         },
         name_general_manager: {
-            trim: true,
-            notEmpty: {
-                bail: true,
-                errorMessage: 'Nombre gerente es requerido'
-            },
             optional: {
                 options:  { nullable: true, checkFalsy: true }
             }
         },
         dni_general_manager: {
-            trim: true,
-            notEmpty: {
-                bail: true,
-                errorMessage: 'Dni gerente es requerido'
-            },
             optional: {
                 options:  { nullable: true, checkFalsy: true }
             }
         },
         email_general_manager: {
-            trim: true,
             isEmail: {
                 bail: true,
-                errorMessage: 'Email gerente inválido'
+                errorMessage: "Email es inválido",
             },
             optional: {
                 options:  { nullable: true, checkFalsy: true }
             }
         },
         name_supervisor: {
-            trim: true,
-            notEmpty: {
-                bail: true,
-                errorMessage: 'Nombre supervisor es requerido'
-            },
             optional: {
                 options:  { nullable: true, checkFalsy: true }
             }
         },
         dni_supervisor: {
-            trim: true,
-            notEmpty: {
-                bail: true,
-                errorMessage: 'Dni supervisor es requerido'
-            },
             optional: {
                 options:  { nullable: true, checkFalsy: true }
             }
         },
         email_supervisor: {
-            trim: true,
             isEmail: {
                 bail: true,
-                errorMessage: 'Email supervisor inválido'
+                errorMessage: "Email es inválido",
             },
             optional: {
                 options:  { nullable: true, checkFalsy: true }
