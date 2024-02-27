@@ -1,5 +1,7 @@
 
 // Dto's
+export * from './dtos/shared/pagination.dto';
+
 export * from './dtos/auth/login.dto';
 
 export * from './dtos/company/create.dto';
@@ -11,6 +13,7 @@ export * from './dtos/company/get.dto';
 // Utils 
 export * from './utils/field-query.util';
 export * from './utils/field-validation.util';
+export * from './utils/pagination.util';
 
 // Errors
 export * from './errors/custom.error';
