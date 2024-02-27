@@ -41,7 +41,7 @@ model Representative {
   dni       String
   email     String?
   company   Company  @relation(fields: [companyId], references: [id])
-  companyId Int
+  companyId Int      @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -52,7 +52,7 @@ model GeneralManager {
   dni       String
   email     String?
   company   Company  @relation(fields: [companyId], references: [id])
-  companyId Int
+  companyId Int      @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -65,13 +65,13 @@ model Supervisor {
   dni       String
   email     String?
   company   Company  @relation(fields: [companyId], references: [id])
-  companyId Int
+  companyId Int      @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Company {
-  id             Int              @id @default(autoincrement())
+  id             Int             @id @default(autoincrement())
   name           String
   email          String
   razon_social   String
@@ -79,13 +79,13 @@ model Company {
   distrito       String
   provincia      String
   address        String
-  state          State            @default(ACTIVE)
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
+  state          State           @default(ACTIVE)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
   Sedes          Sedes[]
-  Representative Representative[]
-  GeneralManager GeneralManager[]
-  Supervisor     Supervisor[]
+  Representative Representative?
+  GeneralManager GeneralManager?
+  Supervisor     Supervisor?
 }
 
 model Sedes {
