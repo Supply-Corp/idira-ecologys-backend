@@ -5,7 +5,7 @@ export class RepresentativeEntity {
         public readonly id: number,
         public readonly name: string,
         public readonly email: string,
-        public readonly ruc: string,
+        public readonly dni: string,
         
         public readonly createdAt?: Date,
         public readonly updatedAt?: Date
@@ -17,7 +17,7 @@ export class RepresentativeEntity {
             id, 
             name, 
             email, 
-            ruc,
+            dni,
             createdAt,
             updatedAt
         } = object;
@@ -25,13 +25,13 @@ export class RepresentativeEntity {
         if (!id) throw "missing id";
         if (!name) throw "missing name";
         if (!email) throw "missing email";
-        if (!ruc) throw "missing ruc";
+        if (!dni) throw "missing dni";
 
         return new RepresentativeEntity(
             id,
             name,
             email,
-            ruc,
+            dni,
             updatedAt,
             createdAt
         );
