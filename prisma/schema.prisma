@@ -16,6 +16,12 @@ enum Role {
   SEDE
 }
 
+enum State {
+  ACTIVE
+  INACTIVE
+  DELETE
+}
+
 model User {
   id       Int    @id @default(autoincrement())
   email    String @unique
@@ -73,6 +79,7 @@ model Company {
   distrito       String
   provincia      String
   address        String
+  state          State            @default(ACTIVE)
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
   Sedes          Sedes[]
