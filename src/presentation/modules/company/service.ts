@@ -1,29 +1,28 @@
 import { prisma } from "../../../configuration";
-import { CreateCompanyDto, CustomError, UpdateCompanyDto } from "../../../domain";
+import { CreateCompanyDto, CustomError, DeleteCompanyDto, UpdateCompanyDto } from "../../../domain";
 
 export class CompanyService {
-
   async create(dto: CreateCompanyDto) {
     const {
-        name,
-        email,
-        razon_social,
-        ruc,
-        distrito,
-        provincia,
-        address,
+      name,
+      email,
+      razon_social,
+      ruc,
+      distrito,
+      provincia,
+      address,
 
-        name_representative,
-        dni_representative,
-        email_representative,
+      name_representative,
+      dni_representative,
+      email_representative,
 
-        name_general_manager,
-        dni_general_manager,
-        email_general_manager,
+      name_general_manager,
+      dni_general_manager,
+      email_general_manager,
 
-        name_supervisor,
-        dni_supervisor,
-        email_supervisor
+      name_supervisor,
+      dni_supervisor,
+      email_supervisor,
     } = dto;
 
     const company = await prisma.company.create({
@@ -37,7 +36,7 @@ export class CompanyService {
         address,
       },
     });
-    if( !company ) throw CustomError.badRequest('Error al crear la empresa');
+    if (!company) throw CustomError.badRequest("Error al crear la empresa");
 
     await prisma.representative.create({
       data: {
@@ -65,14 +64,13 @@ export class CompanyService {
         companyId: company.id,
       },
     });
-    
+
     return {
-      ...company
+      ...company,
     };
   }
 
   async update(dto: UpdateCompanyDto) {
-
     const {
       id,
       name,
@@ -93,11 +91,13 @@ export class CompanyService {
 
       name_supervisor,
       dni_supervisor,
-      email_supervisor
+      email_supervisor,
     } = dto;
 
     const find = await prisma.company.findFirst({ where: { id } });
-    if( !find ) throw CustomError.notFound(`No existe la empresa ${ id }`);
+    if (!find) throw CustomError.notFound(`No existe la empresa ${id}`);
+
+    if( find.state === 'DELETE') throw CustomError.notFound(`No existe la empresa ${id}`);
 
     const companyUpdate = await prisma.company.update({
       where: { id },
@@ -111,7 +111,7 @@ export class CompanyService {
         address: address ? address : find.address,
       },
     });
-    if( !companyUpdate ) throw CustomError.badRequest('Error al actualizar la empresa');
+    if (!companyUpdate)throw CustomError.badRequest("Error al actualizar empresa");
 
     const representative = await prisma.representative.findFirst({
       where: { companyId: id },
@@ -122,7 +122,9 @@ export class CompanyService {
         data: {
           name: name_representative ? name_representative : representative.name,
           dni: dni_representative ? dni_representative : representative.dni,
-          email: email_representative ? email_representative : representative.email,
+          email: email_representative
+            ? email_representative
+            : representative.email,
         },
       });
     }
@@ -140,7 +142,7 @@ export class CompanyService {
         },
       });
     }
-    
+
     const supervisor = await prisma.supervisor.findFirst({
       where: { companyId: id },
     });
@@ -156,8 +158,27 @@ export class CompanyService {
     }
 
     return {
-      ...companyUpdate
-    }
+      ...companyUpdate,
+    };
+  }
 
+  async delete(dto: DeleteCompanyDto) {
+    const id = dto.id;
+
+    const find = await prisma.company.findFirst({ where: { id } });
+    if (!find) throw CustomError.notFound(`No existe la empresa ${id}`);
+
+    if( find.state === 'DELETE') throw CustomError.notFound(`No existe la empresa ${id}`);
+
+    const deleted = await prisma.company.update({
+      where: { id },
+      data: {
+        state: "DELETE",
+      },
+    });
+
+    return {
+      ...deleted,
+    };
   }
 }
