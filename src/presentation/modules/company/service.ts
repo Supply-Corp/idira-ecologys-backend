@@ -1,5 +1,5 @@
 import { prisma } from "../../../configuration";
-import { CreateCompanyDto, CustomError, DeleteCompanyDto, GetCompanyDto, UpdateCompanyDto } from "../../../domain";
+import { CompanyEntity, CreateCompanyDto, CustomError, DeleteCompanyDto, GetCompanyDto, PaginationDto, PaginationGenerate, UpdateCompanyDto } from "../../../domain";
 
 export class CompanyService {
   async create(dto: CreateCompanyDto) {
@@ -202,5 +202,52 @@ export class CompanyService {
       ...find
     }
     
+  }
+
+  async list(dto: PaginationDto) {
+    
+    const { page, limit, search } = dto;
+
+    const [ results, total ] = await Promise.all([
+      prisma.company.findMany({
+        skip: (page - 1) * limit,
+        take: limit,
+        where: {
+          state: 'ACTIVE',
+          name: {
+            startsWith: `%${search}%`,
+          }
+        },
+        include: {
+          Representative: true,
+          GeneralManager: true,
+          Supervisor: true
+        },
+        orderBy: { id: 'desc' }
+      }),
+      prisma.company.count({
+        where: {
+          state: 'ACTIVE',
+          name: {
+            startsWith: `%${search}%`,
+          },
+        },
+      })
+    ]);
+
+    const data = results.map( CompanyEntity.fromObject );
+
+    const pagination = PaginationGenerate.create({
+      page, 
+      limit, 
+      total, 
+      search, 
+      url: 'company', 
+      results: data
+    });
+
+    return {
+      ...pagination
+    };
   }
 }
