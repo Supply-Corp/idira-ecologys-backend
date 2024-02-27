@@ -4,6 +4,7 @@ export * from './dtos/auth/login.dto';
 
 export * from './dtos/company/create.dto';
 export * from './dtos/company/update.dto';
+export * from './dtos/company/delete.dto';
 
 
 // Utils 
