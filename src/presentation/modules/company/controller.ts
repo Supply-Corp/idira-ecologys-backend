@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { CompanyService } from "./service";
-import { CreateCompanyDto, HandleError, UpdateCompanyDto } from "../../../domain";
+import { CreateCompanyDto, DeleteCompanyDto, HandleError, UpdateCompanyDto } from "../../../domain";
 
 export class CompanyController {
 
@@ -22,6 +22,15 @@ export class CompanyController {
         if (error) return res.status(400).json({ error });
 
         this.service.update( dto! )
+        .then((response) => res.send(response))
+        .catch((error) => HandleError.handle(error, res));
+    }
+
+    delete = async (req: Request, res: Response) => {
+        const [error, dto] = await DeleteCompanyDto.create(req);
+        if (error) return res.status(400).json({ error });
+
+        this.service.delete( dto! )
         .then((response) => res.send(response))
         .catch((error) => HandleError.handle(error, res));
     }
