@@ -11,7 +11,7 @@ export class CompanyRoutes {
 
         router.post('/', controller.store);
         router.put('/:id', controller.update);
-        router.delete('/:id', controller.update);
+        router.delete('/:id', controller.delete);
 
         return router;
     }
