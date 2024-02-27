@@ -2,6 +2,8 @@
 // Dto's
 export * from './dtos/auth/login.dto';
 
+export * from './dtos/company/create.dto';
+
 
 // Utils 
 export * from './utils/field-query.util';
@@ -17,3 +19,8 @@ export * from './interfaces/roles';
 
 //Entities 
 export * from './entities/user.entity';
+
+export * from './entities/company.entity';
+export * from './entities/general-manager.entity';
+export * from './entities/representative.entity';
+export * from './entities/supervisor.entity';
