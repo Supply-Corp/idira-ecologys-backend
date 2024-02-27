@@ -30,6 +30,7 @@ export class GeneralManagerEntity {
             id,
             name,
             dni,
+            
             email,
             updatedAt,
             createdAt
