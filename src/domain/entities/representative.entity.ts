@@ -4,9 +4,9 @@ export class RepresentativeEntity {
     constructor(
         public readonly id: number,
         public readonly name: string,
-        public readonly email: string,
         public readonly dni: string,
         
+        public readonly email?: string,
         public readonly createdAt?: Date,
         public readonly updatedAt?: Date
     ) {}
@@ -24,7 +24,6 @@ export class RepresentativeEntity {
 
         if (!id) throw "missing id";
         if (!name) throw "missing name";
-        if (!email) throw "missing email";
         if (!dni) throw "missing dni";
 
         return new RepresentativeEntity(
