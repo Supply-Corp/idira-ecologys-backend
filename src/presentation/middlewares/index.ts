@@ -1,1 +1,1 @@
-export * from './request.middleware';
+export * from './trim.middleware';
