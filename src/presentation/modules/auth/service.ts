@@ -1,2 +1,7 @@
+import { LoginDto } from "../../../domain";
 
-export class AuthService {}
+export class AuthService {
+
+    async login (dto: LoginDto) {}
+
+}
