@@ -35,6 +35,9 @@ export class UpdateCompanyDto {
             notEmpty: {
                 bail: true,
                 errorMessage: 'Id es requerido'
+            },
+            optional: {
+                options:  { nullable: true, checkFalsy: true }
             }
         },
         name: {
@@ -42,6 +45,9 @@ export class UpdateCompanyDto {
             notEmpty: {
                 bail: true,
                 errorMessage: 'Nombre es requerido'
+            },
+            optional: {
+                options:  { nullable: true, checkFalsy: true }
             }
         },
         email: {
@@ -54,12 +60,18 @@ export class UpdateCompanyDto {
                 bail: true,
                 errorMessage: "Email es inválido",
             },
+            optional: {
+                options:  { nullable: true, checkFalsy: true }
+            }
         },
         razon_social: {
             trim: true,
             notEmpty: {
                 bail: true,
                 errorMessage: 'Razón social es requerido'
+            },
+            optional: {
+                options:  { nullable: true, checkFalsy: true }
             }
         },
         ruc: {
@@ -67,6 +79,9 @@ export class UpdateCompanyDto {
             notEmpty: {
                 bail: true,
                 errorMessage: 'Ruc es requerido'
+            },
+            optional: {
+                options:  { nullable: true, checkFalsy: true }
             }
         },
         distrito: {
@@ -74,6 +89,9 @@ export class UpdateCompanyDto {
             notEmpty: {
                 bail: true,
                 errorMessage: 'Distrito es requerido'
+            },
+            optional: {
+                options:  { nullable: true, checkFalsy: true }
             }
         },
         provincia: {
@@ -81,6 +99,9 @@ export class UpdateCompanyDto {
             notEmpty: {
                 bail: true,
                 errorMessage: 'Provincia es requerido'
+            },
+            optional: {
+                options:  { nullable: true, checkFalsy: true }
             }
         },
         address: {
@@ -88,6 +109,9 @@ export class UpdateCompanyDto {
             notEmpty: {
                 bail: true,
                 errorMessage: 'Dirección es requerido'
+            },
+            optional: {
+                options:  { nullable: true, checkFalsy: true }
             }
         },
         name_representative: {
@@ -95,6 +119,9 @@ export class UpdateCompanyDto {
             notEmpty: {
                 bail: true,
                 errorMessage: 'Nombre representante es requerido'
+            },
+            optional: {
+                options:  { nullable: true, checkFalsy: true }
             }
         },
         dni_representative: {
@@ -102,6 +129,9 @@ export class UpdateCompanyDto {
             notEmpty: {
                 bail: true,
                 errorMessage: 'Dni representante es requerido'
+            },
+            optional: {
+                options:  { nullable: true, checkFalsy: true }
             }
         },
         email_representative: {
@@ -119,6 +149,9 @@ export class UpdateCompanyDto {
             notEmpty: {
                 bail: true,
                 errorMessage: 'Nombre gerente es requerido'
+            },
+            optional: {
+                options:  { nullable: true, checkFalsy: true }
             }
         },
         dni_general_manager: {
@@ -126,6 +159,9 @@ export class UpdateCompanyDto {
             notEmpty: {
                 bail: true,
                 errorMessage: 'Dni gerente es requerido'
+            },
+            optional: {
+                options:  { nullable: true, checkFalsy: true }
             }
         },
         email_general_manager: {
@@ -143,6 +179,9 @@ export class UpdateCompanyDto {
             notEmpty: {
                 bail: true,
                 errorMessage: 'Nombre supervisor es requerido'
+            },
+            optional: {
+                options:  { nullable: true, checkFalsy: true }
             }
         },
         dni_supervisor: {
@@ -150,6 +189,9 @@ export class UpdateCompanyDto {
             notEmpty: {
                 bail: true,
                 errorMessage: 'Dni supervisor es requerido'
+            },
+            optional: {
+                options:  { nullable: true, checkFalsy: true }
             }
         },
         email_supervisor: {
