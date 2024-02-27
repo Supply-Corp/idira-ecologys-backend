@@ -1,5 +1,5 @@
 import { prisma } from "../../../configuration";
-import { CreateCompanyDto, CustomError, DeleteCompanyDto, UpdateCompanyDto } from "../../../domain";
+import { CreateCompanyDto, CustomError, DeleteCompanyDto, GetCompanyDto, UpdateCompanyDto } from "../../../domain";
 
 export class CompanyService {
   async create(dto: CreateCompanyDto) {
@@ -180,5 +180,27 @@ export class CompanyService {
     return {
       ...deleted,
     };
+  }
+
+  async get(dto: GetCompanyDto) {
+    const id = dto.id;
+
+    const find = await prisma.company.findFirst({ 
+      where: { id },
+      include: {
+        Representative: true,
+        GeneralManager: true,
+        Supervisor: true
+      } 
+    });
+
+    if (!find) throw CustomError.notFound(`No existe la empresa ${id}`);
+
+    if( find.state === 'DELETE') throw CustomError.notFound(`No existe la empresa ${id}`);
+
+    return {
+      ...find
+    }
+    
   }
 }
