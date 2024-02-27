@@ -7,11 +7,14 @@ export class CompanyEntity {
         public readonly ruc: string,
         public readonly distrito: string,
         public readonly provincia: string,
-        public readonly address: string
+        public readonly address: string,
+
+        public readonly createdAt?: Date,
+        public readonly updatedAt?: Date
     ) {}
 
     static fromObject(object: { [key: string]: any }) {
-        
+
         const { 
             id, 
             name, 
@@ -20,7 +23,9 @@ export class CompanyEntity {
             ruc, 
             distrito, 
             provincia, 
-            address 
+            address,
+            createdAt,
+            updatedAt
         } = object;
 
         if (!id) throw "missing id";
@@ -40,7 +45,9 @@ export class CompanyEntity {
             ruc,
             distrito,
             provincia,
-            address
+            address,
+            updatedAt,
+            createdAt
         );
     }
 }
