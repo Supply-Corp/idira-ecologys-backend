@@ -1,4 +1,4 @@
-import { envs } from "./configuration";
+import { PrismaConnection, envs } from "./configuration";
 import { ServerRoutes } from "./presentation/routes";
 import { Server } from "./presentation/server";
 
@@ -7,4 +7,6 @@ import { Server } from "./presentation/server";
 
     const server = new Server(PORT, ServerRoutes.routes);
     server.start();
+
+    PrismaConnection.client();
 })();
