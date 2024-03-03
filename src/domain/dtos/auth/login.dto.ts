@@ -4,7 +4,6 @@ import { Request } from "express";
 import { FieldValidation } from "../../utils/field-validation.util";
 
 export class LoginDto {
-
     constructor(
         public readonly email: string,
         public readonly password: string
@@ -43,7 +42,7 @@ export class LoginDto {
 
         try {
             const valid = await FieldValidation.validate(this.schema, req);
-            return [valid, undefined];
+        return [valid, undefined];
         } catch (error) {
             return [undefined, new LoginDto(email, password)];
         }

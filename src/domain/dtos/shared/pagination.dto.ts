@@ -8,8 +8,7 @@ export class PaginationDto {
   ) {}
 
   static create(req: Request): [string?, PaginationDto?] {
-
-    const { page = 10, limit = 10, search = '' } = req.query;
+    const { page = 10, limit = 10, search = "" } = req.query;
 
     if (+page <= 0) return ["Page must be greater than 0"];
     if (+limit <= 0) return ["Limit must be greater than 0"];

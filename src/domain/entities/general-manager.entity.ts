@@ -1,6 +1,4 @@
-
 export class GeneralManagerEntity {
-
     constructor(
         public readonly id: number,
         public readonly name: string,
@@ -12,15 +10,7 @@ export class GeneralManagerEntity {
     ) {}
 
     static fromObject(object: { [key: string]: any }) {
-
-        const { 
-            id, 
-            name, 
-            email, 
-            dni,
-            createdAt,
-            updatedAt
-        } = object;
+        const { id, name, email, dni, createdAt, updatedAt } = object;
 
         if (!id) throw "missing id";
         if (!name) throw "missing name";
@@ -30,11 +20,10 @@ export class GeneralManagerEntity {
             id,
             name,
             dni,
-            
+
             email,
             updatedAt,
             createdAt
         );
     }
-
 }

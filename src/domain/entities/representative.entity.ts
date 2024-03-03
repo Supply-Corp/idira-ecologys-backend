@@ -1,26 +1,16 @@
-
 export class RepresentativeEntity {
-
     constructor(
         public readonly id: number,
         public readonly name: string,
         public readonly dni: string,
-        
+
         public readonly email?: string,
         public readonly createdAt?: Date,
         public readonly updatedAt?: Date
     ) {}
 
     static fromObject(object: { [key: string]: any }) {
-
-        const { 
-            id, 
-            name, 
-            email, 
-            dni,
-            createdAt,
-            updatedAt
-        } = object;
+        const { id, name, email, dni, createdAt, updatedAt } = object;
 
         if (!id) throw "missing id";
         if (!name) throw "missing name";
@@ -36,5 +26,4 @@ export class RepresentativeEntity {
             createdAt
         );
     }
-
 }

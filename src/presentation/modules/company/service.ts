@@ -1,5 +1,14 @@
 import { prisma } from "../../../configuration";
-import { CompanyEntity, CreateCompanyDto, CustomError, DeleteCompanyDto, GetCompanyDto, PaginationDto, PaginationGenerate, UpdateCompanyDto } from "../../../domain";
+import {
+  CompanyEntity,
+  CreateCompanyDto,
+  CustomError,
+  DeleteCompanyDto,
+  GetCompanyDto,
+  PaginationDto,
+  PaginationGenerate,
+  UpdateCompanyDto,
+} from "../../../domain";
 
 export class CompanyService {
   async create(dto: CreateCompanyDto) {
@@ -97,7 +106,8 @@ export class CompanyService {
     const find = await prisma.company.findFirst({ where: { id } });
     if (!find) throw CustomError.notFound(`No existe la empresa ${id}`);
 
-    if( find.state === 'DELETE') throw CustomError.notFound(`No existe la empresa ${id}`);
+    if (find.state === "DELETE")
+      throw CustomError.notFound(`No existe la empresa ${id}`);
 
     const companyUpdate = await prisma.company.update({
       where: { id },
@@ -111,7 +121,8 @@ export class CompanyService {
         address: address ? address : find.address,
       },
     });
-    if (!companyUpdate)throw CustomError.badRequest("Error al actualizar empresa");
+    if (!companyUpdate)
+      throw CustomError.badRequest("Error al actualizar empresa");
 
     const representative = await prisma.representative.findFirst({
       where: { companyId: id },
@@ -165,89 +176,100 @@ export class CompanyService {
   async delete(dto: DeleteCompanyDto) {
     const id = dto.id;
 
-    const find = await prisma.company.findFirst({ where: { id } });
-    if (!find) throw CustomError.notFound(`No existe la empresa ${id}`);
+    try {
+      const find = await prisma.company.findFirst({ where: { id } });
+      if (!find) throw CustomError.notFound(`No existe la empresa ${id}`);
 
-    if( find.state === 'DELETE') throw CustomError.notFound(`No existe la empresa ${id}`);
+      if (find.state === "DELETE")
+        throw CustomError.notFound(`No existe la empresa ${id}`);
 
-    const deleted = await prisma.company.update({
-      where: { id },
-      data: {
-        state: "DELETE",
-      },
-    });
+      const deleted = await prisma.company.update({
+        where: { id },
+        data: {
+          state: "DELETE",
+        },
+      });
 
-    return {
-      ...deleted,
-    };
+      return {
+        ...deleted,
+      };
+    } catch (error) {
+      throw error;
+    }
   }
 
   async get(dto: GetCompanyDto) {
     const id = dto.id;
 
-    const find = await prisma.company.findFirst({ 
-      where: { id },
-      include: {
-        Representative: true,
-        GeneralManager: true,
-        Supervisor: true
-      } 
-    });
-
-    if (!find) throw CustomError.notFound(`No existe la empresa ${id}`);
-
-    if( find.state === 'DELETE') throw CustomError.notFound(`No existe la empresa ${id}`);
-
-    return {
-      ...find
-    }
-    
-  }
-
-  async list(dto: PaginationDto) {
-    
-    const { page, limit, search } = dto;
-
-    const [ results, total ] = await Promise.all([
-      prisma.company.findMany({
-        skip: (page - 1) * limit,
-        take: limit,
-        where: {
-          state: 'ACTIVE',
-          name: {
-            startsWith: `%${search}%`,
-          }
-        },
+    try {
+      const find = await prisma.company.findFirst({
+        where: { id },
         include: {
           Representative: true,
           GeneralManager: true,
-          Supervisor: true
+          Supervisor: true,
         },
-        orderBy: { id: 'desc' }
-      }),
-      prisma.company.count({
-        where: {
-          state: 'ACTIVE',
-          name: {
-            startsWith: `%${search}%`,
+      });
+
+      if (!find) throw CustomError.notFound(`No existe la empresa ${id}`);
+      if (find.state === "DELETE")
+        throw CustomError.notFound(`No existe la empresa ${id}`);
+
+      return {
+        ...find,
+      };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async list(dto: PaginationDto) {
+    const { page, limit, search } = dto;
+
+    try {
+      const [results, total] = await Promise.all([
+        prisma.company.findMany({
+          skip: (page - 1) * limit,
+          take: limit,
+          where: {
+            state: "ACTIVE",
+            name: {
+              startsWith: `%${search}%`,
+            },
           },
-        },
-      })
-    ]);
+          include: {
+            Representative: true,
+            GeneralManager: true,
+            Supervisor: true,
+          },
+          orderBy: { id: "desc" },
+        }),
+        prisma.company.count({
+          where: {
+            state: "ACTIVE",
+            name: {
+              startsWith: `%${search}%`,
+            },
+          },
+        }),
+      ]);
 
-    const data = results.map( CompanyEntity.fromObject );
+      const data = results.map(CompanyEntity.fromObject);
 
-    const pagination = PaginationGenerate.create({
-      page, 
-      limit, 
-      total, 
-      search, 
-      url: 'company', 
-      results: data
-    });
+      const pagination = PaginationGenerate.create({
+        page,
+        limit,
+        total,
+        search,
+        url: "company",
+        results: data,
+      });
 
-    return {
-      ...pagination
-    };
+      return {
+        ...pagination,
+      };
+    } catch (error) {
+      throw error;
+    }
   }
 }
