@@ -1,3 +1,4 @@
+import { States } from "../interfaces/states";
 import { CompanyEntity } from "./company.entity";
 
 export class SedeEntity {
@@ -8,7 +9,7 @@ export class SedeEntity {
         public readonly address: string,
         public readonly email: string,
         public readonly companyId: number,
-
+        public readonly state: States,
         public readonly company?: CompanyEntity,
         
         public readonly createdAt?: Date,
@@ -22,6 +23,7 @@ export class SedeEntity {
             address,
             email,
             companyId,
+            state,
             company,
             createdAt,
             updatedAt
@@ -32,6 +34,8 @@ export class SedeEntity {
         if(!address) throw 'missing address';
         if(!email) throw 'missing email';
         if(!companyId) throw 'missing companyId';
+        if(!state) throw 'missing state';
+        if(!(state as States)) throw 'missing state';
          
         return new SedeEntity(
             id,
@@ -39,6 +43,7 @@ export class SedeEntity {
             address,
             email,
             companyId,
+            state,
             company,
             createdAt,
             updatedAt
