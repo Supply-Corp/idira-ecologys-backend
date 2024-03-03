@@ -69,7 +69,23 @@ export class SedesService {
         }
     }
 
-    async get(dto: GetSedeDto) {}
+    async get(dto: GetSedeDto) {
+        try {
+            const find = await prisma.sedes.findFirst({
+                where: { id: dto.id }
+            });
+
+            if(!find) throw CustomError.badRequest(`No existe la sede ${ dto.id }`);
+            if(find.state === 'DELETE') throw CustomError.badRequest(`No existe la sede ${ dto.id }`);
+
+            const sede = SedeEntity.fromObject(find);
+
+            return { ...sede };
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async list(dto: PaginationDto) {}
 
 }
