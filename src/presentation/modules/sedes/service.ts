@@ -26,9 +26,27 @@ export class SedesService {
     }
 
     async update(dto: UpdateSedeDto) {
+        try {
+            const company = await prisma.company.findFirst({
+                where: { id: dto.companyId }
+            });
 
+            if(!company) throw CustomError.badRequest(`No existe la empresa ${ dto.companyId }`);
+            if(company.state === 'DELETE') throw CustomError.badRequest(`No existe la empresa ${ dto.companyId }`);
+
+            const update = await prisma.sedes.update({
+                data: { ...dto },
+                where: { id: dto.id }
+            });
+            
+            const sede = SedeEntity.fromObject(update);
+
+            return { ...sede };
+        } catch (error) {
+            throw `${ error }`;
+        }
     }
-    
+
     async delete(dto: DeleteSedeDto) {}
     async get(dto: GetSedeDto) {}
     async list(dto: PaginationDto) {}
