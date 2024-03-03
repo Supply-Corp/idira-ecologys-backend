@@ -1,3 +1,4 @@
+import { States } from "../interfaces/states";
 import { GeneralManagerEntity } from "./general-manager.entity";
 import { RepresentativeEntity } from "./representative.entity";
 import { SupervisorEntity } from "./supervisor.entity";
@@ -12,6 +13,7 @@ export class CompanyEntity {
     public readonly distrito: string,
     public readonly provincia: string,
     public readonly address: string,
+    public readonly state: States,
 
     public readonly Representative?: RepresentativeEntity,
     public readonly GeneralManager?: GeneralManagerEntity,
@@ -31,6 +33,7 @@ export class CompanyEntity {
       distrito,
       provincia,
       address,
+      state,
 
       Representative,
       GeneralManager,
@@ -48,6 +51,8 @@ export class CompanyEntity {
     if (!distrito) throw "missing distrito";
     if (!provincia) throw "missing provincia";
     if (!address) throw "missing address";
+    if(!state) throw 'missing state';
+    if(!(state as States)) throw 'missing state';
 
     return new CompanyEntity(
       id,
@@ -58,7 +63,8 @@ export class CompanyEntity {
       distrito,
       provincia,
       address,
-
+      state,
+      
       Representative,
       GeneralManager,
       Supervisor,
