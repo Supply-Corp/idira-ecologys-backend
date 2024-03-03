@@ -27,6 +27,7 @@ export * from './errors/handle.error';
 
 //Interfaces
 export * from './interfaces/roles';
+export * from './interfaces/states';
 
 //Entities 
 export * from './entities/user.entity';
