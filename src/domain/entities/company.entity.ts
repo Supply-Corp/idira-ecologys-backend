@@ -3,23 +3,23 @@ import { RepresentativeEntity } from "./representative.entity";
 import { SupervisorEntity } from "./supervisor.entity";
 
 export class CompanyEntity {
-    constructor(
-        public readonly id: number,
-        public readonly name: string,
-        public readonly email: string,
-        public readonly razon_social: string,
-        public readonly ruc: string,
-        public readonly distrito: string,
-        public readonly provincia: string,
-        public readonly address: string,
+  constructor(
+    public readonly id: number,
+    public readonly name: string,
+    public readonly email: string,
+    public readonly razon_social: string,
+    public readonly ruc: string,
+    public readonly distrito: string,
+    public readonly provincia: string,
+    public readonly address: string,
 
-        public readonly Representative?: RepresentativeEntity,
-        public readonly GeneralManager?: GeneralManagerEntity,
-        public readonly Supervisor?: SupervisorEntity,
+    public readonly Representative?: RepresentativeEntity,
+    public readonly GeneralManager?: GeneralManagerEntity,
+    public readonly Supervisor?: SupervisorEntity,
 
-        public readonly createdAt?: Date,
-        public readonly updatedAt?: Date
-    ) {}
+    public readonly createdAt?: Date,
+    public readonly updatedAt?: Date
+  ) {}
 
   static fromObject(object: { [key: string]: any }) {
     const {
