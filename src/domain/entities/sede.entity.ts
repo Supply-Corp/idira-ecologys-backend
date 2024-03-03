@@ -10,7 +10,7 @@ export class SedeEntity {
         public readonly email: string,
         public readonly companyId: number,
         public readonly state: States,
-        public readonly company?: CompanyEntity,
+        public readonly Company?: CompanyEntity,
         
         public readonly createdAt?: Date,
         public readonly updatedAt?: Date,
@@ -24,7 +24,7 @@ export class SedeEntity {
             email,
             companyId,
             state,
-            company,
+            Company,
             createdAt,
             updatedAt
         } = object;
@@ -44,7 +44,7 @@ export class SedeEntity {
             email,
             companyId,
             state,
-            company,
+            Company,
             createdAt,
             updatedAt
         );
