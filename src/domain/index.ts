@@ -9,6 +9,11 @@ export * from './dtos/company/update.dto';
 export * from './dtos/company/delete.dto';
 export * from './dtos/company/get.dto';
 
+export * from './dtos/sedes/create.dto';
+export * from './dtos/sedes/update.dto';
+export * from './dtos/sedes/delete.dto';
+export * from './dtos/sedes/get.dto';
+
 
 // Utils 
 export * from './utils/field-query.util';
