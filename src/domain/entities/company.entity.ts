@@ -1,6 +1,7 @@
 import { States } from "../interfaces/states";
 import { GeneralManagerEntity } from "./general-manager.entity";
 import { RepresentativeEntity } from "./representative.entity";
+import { SedeEntity } from "./sede.entity";
 import { SupervisorEntity } from "./supervisor.entity";
 
 export class CompanyEntity {
@@ -18,6 +19,7 @@ export class CompanyEntity {
     public readonly Representative?: RepresentativeEntity,
     public readonly GeneralManager?: GeneralManagerEntity,
     public readonly Supervisor?: SupervisorEntity,
+    public readonly Sedes?: SedeEntity,
 
     public readonly createdAt?: Date,
     public readonly updatedAt?: Date
@@ -38,6 +40,7 @@ export class CompanyEntity {
       Representative,
       GeneralManager,
       Supervisor,
+      Sedes,
 
       createdAt,
       updatedAt,
@@ -68,6 +71,7 @@ export class CompanyEntity {
       Representative,
       GeneralManager,
       Supervisor,
+      Sedes,
 
       updatedAt,
       createdAt
