@@ -35,3 +35,4 @@ export * from './entities/company.entity';
 export * from './entities/general-manager.entity';
 export * from './entities/representative.entity';
 export * from './entities/supervisor.entity';
+export * from './entities/sede.entity';
