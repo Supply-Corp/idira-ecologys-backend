@@ -208,6 +208,9 @@ export class CompanyService {
           Representative: true,
           GeneralManager: true,
           Supervisor: true,
+          Sedes: {
+            where: { state: "ACTIVE" }
+          }
         },
       });
 
@@ -233,23 +236,22 @@ export class CompanyService {
           take: limit,
           where: {
             state: "ACTIVE",
-            name: {
-              startsWith: `%${search}%`,
-            },
-          },
+            name: { startsWith: search } 
+          } ,
           include: {
             Representative: true,
             GeneralManager: true,
             Supervisor: true,
+            Sedes: {
+              where: { state: "ACTIVE" }
+            }
           },
           orderBy: { id: "desc" },
         }),
         prisma.company.count({
           where: {
             state: "ACTIVE",
-            name: {
-              startsWith: `%${search}%`,
-            },
+            name: { startsWith: search } 
           },
         }),
       ]);
