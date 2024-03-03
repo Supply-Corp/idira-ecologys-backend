@@ -47,7 +47,28 @@ export class SedesService {
         }
     }
 
-    async delete(dto: DeleteSedeDto) {}
+    async delete(dto: DeleteSedeDto) {
+        try {
+            const search = await prisma.sedes.findFirst({
+                where: { id: dto.id }
+            });
+
+            if(!search) throw CustomError.notFound(`Sede ${dto.id} no existe`);
+            if(search.state === "DELETE") throw CustomError.notFound(`Sede ${dto.id} no existe`);
+
+            const deleted = await prisma.sedes.update({
+                where: { id: dto.id },
+                data: { state: "DELETE" },
+            });
+
+            const sede = SedeEntity.fromObject(deleted);
+
+            return { ...sede };
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async get(dto: GetSedeDto) {}
     async list(dto: PaginationDto) {}
 
