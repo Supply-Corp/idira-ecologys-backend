@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { SedesService } from "./service";
-import { HandleError } from "../../../domain";
+import { CreateSedeDto, DeleteSedeDto, GetSedeDto, HandleError, PaginationDto, UpdateSedeDto } from "../../../domain";
 
 export class SedesController {
 
@@ -9,41 +9,51 @@ export class SedesController {
     ) {}
 
     store = async (req: Request, res: Response) => {
+        const [error, dto] = await CreateSedeDto.create(req);
+        if (error) return res.status(400).json({ error });
 
         this.service
-        .store()
+        .store( dto! )
         .then((response) => res.send(response))
         .catch((error) => HandleError.handle(error, res))
     }
 
     update = async (req: Request, res: Response) => {
+        const [error, dto] = await UpdateSedeDto.create(req);
+        if (error) return res.status(400).json({ error });
 
         this.service
-        .update()
+        .update( dto! )
         .then((response) => res.send(response))
         .catch((error) => HandleError.handle(error, res))
     }
 
     delete = async (req: Request, res: Response) => {
+        const [error, dto] = await DeleteSedeDto.create(req);
+        if (error) return res.status(400).json({ error });
 
         this.service
-        .delete()
+        .delete( dto! )
         .then((response) => res.send(response))
         .catch((error) => HandleError.handle(error, res))
     }
 
     get = async (req: Request, res: Response) => {
+        const [error, dto] = await GetSedeDto.create(req);
+        if (error) return res.status(400).json({ error });
 
         this.service
-        .get()
+        .get( dto! )
         .then((response) => res.send(response))
         .catch((error) => HandleError.handle(error, res))
     }
 
     list = async (req: Request, res: Response) => {
+        const [error, dto] = PaginationDto.create(req);
+        if (error) return res.status(400).json({ error });
 
         this.service
-        .list()
+        .list( dto! )
         .then((response) => res.send(response))
         .catch((error) => HandleError.handle(error, res))
     }
