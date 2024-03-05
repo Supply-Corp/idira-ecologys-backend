@@ -1,4 +1,5 @@
 import express, { Router } from "express";
+import { corsMiddleware } from "./middlewares";
 
 export class Server {
     private readonly app = express();
@@ -13,6 +14,7 @@ export class Server {
     async start() {
         // middlewares
         this.app.use(express.json());
+        this.app.use(corsMiddleware());
 
         //routes
         this.app.use(this.routes);
