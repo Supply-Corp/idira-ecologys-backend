@@ -2,6 +2,7 @@ import cors from "cors";
 
 const ACCEPTED_ORIGINS = [
   "http://localhost:4200",
+  "https://idira.supplycorp.pe"
 ];
 
 export const corsMiddleware = ({ acceptedOrigins = ACCEPTED_ORIGINS } = {}) =>
