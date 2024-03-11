@@ -52,8 +52,12 @@ export class SedesController {
         const [error, dto] = PaginationDto.create(req);
         if (error) return res.status(400).json({ error });
 
+        const company = req.params.company;
+        if(!company) return res.status(400).json({ error: 'company es requerido' })
+
+
         this.service
-        .list( dto! )
+        .list( dto!, +company )
         .then((response) => res.send(response))
         .catch((error) => HandleError.handle(error, res))
     }

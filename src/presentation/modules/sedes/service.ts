@@ -100,51 +100,59 @@ export class SedesService {
         }
     }
 
-    async list(dto: PaginationDto) {
+    async list(dto: PaginationDto, company: number) {
         const { page, limit, search } = dto;
 
         try {
-        const [results, total] = await Promise.all([
-            prisma.sedes.findMany({
-            skip: (page - 1) * limit,
-            take: limit,
-            where: {
-                state: "ACTIVE",
-                name: {
-                startsWith: `%${search}%`,
-                },
-            },
-            include: {
-                Company: true,
-            },
-            orderBy: { id: "desc" },
-            }),
-            prisma.sedes.count({
-            where: {
-                state: "ACTIVE",
-                name: {
-                startsWith: `%${search}%`,
-                },
-            },
-            }),
-        ]);
 
-        const data = results.map(SedeEntity.fromObject);
+            const validCompany = await prisma.company.findFirst({ 
+                where: { 
+                    id: company 
+                } 
+            });
+            if(!validCompany) throw CustomError.notFound('Empresa no existe');
+            if(validCompany.state === "DELETE") throw CustomError.notFound('Empresa no existe');
 
-        const pagination = PaginationGenerate.create({
-            page,
-            limit,
-            total,
-            search,
-            url: "company",
-            results: data,
-        });
+            const [results, total] = await Promise.all([
+                prisma.sedes.findMany({
+                    skip: (page - 1) * limit,
+                    take: limit,
+                    where: {
+                        state: "ACTIVE",
+                        companyId: company,
+                        name: {
+                            startsWith: `%${search}%`,
+                        },
+                    },
+                    orderBy: { id: "desc" },
+                }),
+                prisma.sedes.count({
+                    where: {
+                        state: "ACTIVE",
+                        companyId: company,
+                        name: {
+                            startsWith: `%${search}%`,
+                        },
+                    },
+                }),
+            ]);
 
-        return {
-            ...pagination,
-        };
+            const data = results.map(SedeEntity.fromObject);
+
+            const pagination = PaginationGenerate.create({
+                page,
+                limit,
+                total,
+                search,
+                url: "company",
+                results: data,
+            });
+
+            return {
+                ...pagination,
+            };
         } catch (error) {
-        throw error;
+            throw error;
         }
     }
 }
