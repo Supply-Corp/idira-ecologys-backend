@@ -9,7 +9,7 @@ export class SedesRoutes {
         const service = new SedesService();
         const controller = new SedesController(service);
 
-        router.get("/:company", controller.list);
+        router.get("/company/:company", controller.list);
         router.post("/", controller.store);
         router.put("/:id", controller.update);
         router.delete("/:id", controller.delete);
