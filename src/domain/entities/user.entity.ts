@@ -1,4 +1,5 @@
 import { Roles } from "../interfaces/roles";
+import { States } from "../interfaces/states";
 
 export class UserEntity {
     constructor(
@@ -7,19 +8,22 @@ export class UserEntity {
         public readonly email: string,
         public readonly password: string,
         public readonly role: Roles,
-        public readonly sedeId?: number
+        public readonly state: States,
+        public readonly sedeId?: number,
+        public readonly createdAt?: Date,
+        public readonly updatedAt?: Date,
     ) {}
 
     static fromObject(object: { [key: string]: any }) {
-        const { id, name, email, password, role, sedeId } = object;
+        const { id, name, email, password, role, state, sedeId, createdAt, updatedAt } = object;
 
         if (!id) throw "missing id";
         if (!name) throw "missing name";
         if (!email) throw "missing email";
         if (!password) throw "missing password";
         if (!role) throw "missing role";
-        if (!sedeId) throw "missing sedeId";
+        if (!state) throw "missing state";
 
-        return new UserEntity(id, name, email, password, role, sedeId);
+        return new UserEntity(id, name, email, password, role, state, sedeId, createdAt, updatedAt);
     }
 }
