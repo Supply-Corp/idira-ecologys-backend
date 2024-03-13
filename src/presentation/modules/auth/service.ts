@@ -6,7 +6,8 @@ export class AuthService {
         const { email, password: nPassword } = dto;
 
         const find = await prisma.user.findFirst({ where: { email } });
-        if (!find) throw CustomError.badRequest("Email o contraseña invalida");
+        if (!find) throw CustomError.notFound("Email o contraseña invalida");
+        if (find.state === "DELETE") throw CustomError.notFound("Email o contraseña invalida");
 
         const compare = HashAdapter.compare(nPassword, find.password);
         if (!compare) throw CustomError.badRequest("contraseña inválida");
@@ -17,8 +18,8 @@ export class AuthService {
         if (!token) throw CustomError.internalServe("Error al generar el token");
 
         return {
-        user,
-        token,
+            user,
+            token,
         };
     }
 }
