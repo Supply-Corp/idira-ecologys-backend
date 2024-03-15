@@ -30,10 +30,6 @@ export class UpdateUserDto {
         },
         email: {
             trim: true,
-            notEmpty: {
-                bail: true,
-                errorMessage: 'Email es requerido'
-            },
             isEmail: {
                 bail: true,
                 errorMessage: 'Email es inválido'
@@ -44,20 +40,12 @@ export class UpdateUserDto {
         },
         name: {
             trim: true,
-            notEmpty: {
-                bail: true,
-                errorMessage: 'Nombre es requerido'
-            },
             optional: {
                 options: { nullable: true, checkFalsy: true },
             },
         },
         password: {
             trim: true,
-            notEmpty: {
-                bail: true,
-                errorMessage: 'Contraseña es requerido'
-            },
             isLength: {
                 options: {
                     min: 8,
@@ -70,10 +58,6 @@ export class UpdateUserDto {
         },
         role: {
             trim: true,
-            notEmpty: {
-                bail:true,
-                errorMessage: 'Rol es requerido'
-            },
             optional: {
                 options: { nullable: true, checkFalsy: true },
             },
