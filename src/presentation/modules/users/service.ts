@@ -66,11 +66,11 @@ export class UserServices {
   async store(dto: CreateUserDto) {
     try {
 
-        if(dto.sedeId && dto.role === "ADMIN" || dto.role === "USER") {
-            throw CustomError.badRequest(`El rol ${dto.role} no requiere una sede`);
-        }else if(!dto.sedeId && dto.role === "SEDE") {
-            throw CustomError.badRequest(`El rol ${dto.role} requiere una sede`);
-        }
+        // if(dto.sedeId && dto.role === "ADMIN" || dto.role === "USER") {
+        //     throw CustomError.badRequest(`El rol ${dto.role} no requiere una sede`);
+        // }else if(!dto.sedeId && dto.role === "SEDE") {
+        //     throw CustomError.badRequest(`El rol ${dto.role} requiere una sede`);
+        // }
 
         const create = await prisma.user.create({
             data: {
@@ -94,11 +94,11 @@ export class UserServices {
 
   async update(dto: UpdateUserDto) {
     try {
-        if(dto.sedeId && (dto.role === "ADMIN" || dto.role === "USER")) {
-            throw CustomError.badRequest(`El rol ${dto.role} no requiere una sede`);
-        }else if(!dto.sedeId && dto.role === "SEDE") {
-            throw CustomError.badRequest(`El rol ${dto.role} requiere una sede`);
-        }
+        // if(dto.sedeId && (dto.role === "ADMIN" || dto.role === "USER")) {
+        //     throw CustomError.badRequest(`El rol ${dto.role} no requiere una sede`);
+        // }else if(!dto.sedeId && dto.role === "SEDE") {
+        //     throw CustomError.badRequest(`El rol ${dto.role} requiere una sede`);
+        // }
 
         const valid =  await prisma.user.findFirst({ where: { id: dto.id } });
 
