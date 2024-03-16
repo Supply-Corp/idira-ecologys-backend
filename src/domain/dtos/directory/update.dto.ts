@@ -2,11 +2,14 @@ import { Schema } from "express-validator";
 import { FieldQuery } from "../../utils/field-query.util";
 import { FieldValidation } from "../../utils/field-validation.util";
 import { Request } from "express";
+import { States } from "../../interfaces/states";
+import { UserValidationMiddleware } from "../../../presentation/middlewares";
 
 export class UpdateDirectoryDto {
     constructor(
         public readonly id: number,
-        public readonly name: string
+        public readonly name: string,
+        public readonly state: States
     ) {}
 
     private static schema: Schema = {
@@ -28,17 +31,26 @@ export class UpdateDirectoryDto {
                 errorMessage: "Nombre es requerido",
             },
         },
+        state: {
+            trim: true,
+            optional: {
+                options: { nullable: true, checkFalsy: true },
+            },
+            custom: {
+                options: UserValidationMiddleware.state
+            }
+        }
     };
 
     static async create(req: Request): Promise<[FieldQuery[]?, UpdateDirectoryDto?]> {
-        const { name } = req.body;
+        const { name, state } = req.body;
         const id = req.params.id;
 
         try {
             const valid = await FieldValidation.validate(this.schema, req);
             return [valid, undefined];
         } catch (error) {
-            return [undefined, new UpdateDirectoryDto(+id,name)];
+            return [undefined, new UpdateDirectoryDto(+id, name, state)];
         }
     }
 }

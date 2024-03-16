@@ -6,7 +6,7 @@ import { Request } from "express";
 export class CreateSubDirectoryYearDto {
     constructor(
         public readonly name: string,
-        public readonly directoryId: number
+        public readonly subDirectoryId: number
     ) {}
 
     private static schema: Schema = {
@@ -17,7 +17,7 @@ export class CreateSubDirectoryYearDto {
                 errorMessage: "Nombre es requerido",
             },
         },
-        directoryId: {
+        subDirectoryId: {
             trim: true,
             notEmpty: {
                 bail: true,
@@ -31,13 +31,13 @@ export class CreateSubDirectoryYearDto {
     };
 
     static async create(req: Request): Promise<[FieldQuery[]?, CreateSubDirectoryYearDto?]> {
-        const { name, directoryId } = req.body;
+        const { name, subDirectoryId } = req.body;
 
         try {
             const valid = await FieldValidation.validate(this.schema, req);
             return [valid, undefined];
         } catch (error) {
-            return [undefined, new CreateSubDirectoryYearDto(name, directoryId)];
+            return [undefined, new CreateSubDirectoryYearDto(name, subDirectoryId)];
         }
     }
 }
