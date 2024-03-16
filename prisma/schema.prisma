@@ -104,6 +104,7 @@ model Sedes {
 model Directory {
   id           Int            @id @default(autoincrement())
   name         String
+  state        State          @default(ACTIVE)
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
   SubDirectory SubDirectory[]
@@ -114,6 +115,7 @@ model SubDirectory {
   name             String
   Directory        Directory          @relation(fields: [directoryId], references: [id])
   directoryId      Int
+  state            State              @default(ACTIVE)
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
   SubDirectoryYear SubDirectoryYear[]
@@ -124,7 +126,9 @@ model SubDirectoryYear {
   name           String
   SubDirectory   SubDirectory @relation(fields: [subDirectoryId], references: [id])
   subDirectoryId Int
+  state          State        @default(ACTIVE)
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
+
   @@map("subdirectory_year")
 }
