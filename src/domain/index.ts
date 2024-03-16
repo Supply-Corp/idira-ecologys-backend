@@ -52,3 +52,6 @@ export * from './entities/general-manager.entity';
 export * from './entities/representative.entity';
 export * from './entities/supervisor.entity';
 export * from './entities/sede.entity';
+export * from './entities/directory.entity';
+export * from './entities/subdirectory.entity';
+export * from './entities/subdirectory-year.entity';
