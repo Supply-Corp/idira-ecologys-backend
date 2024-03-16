@@ -14,4 +14,10 @@ export class AuthController {
         .then((response) => res.send(response))
         .catch((error) => HandleError.handle(error, res));
     };
+
+    user = async (req: Request, res: Response) => {
+
+        return res.send(req.body.user);
+        
+    }
 }
