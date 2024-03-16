@@ -73,8 +73,8 @@ export class CompanyEntity {
       Supervisor,
       Sedes,
 
-      updatedAt,
-      createdAt
+      createdAt,
+      updatedAt
     );
   }
 }
