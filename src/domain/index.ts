@@ -1,6 +1,8 @@
 
 // Dto's
 export * from './dtos/shared/pagination.dto';
+export * from './dtos/shared/get.dto';
+export * from './dtos/shared/delete.dto';
 
 export * from './dtos/auth/login.dto';
 
@@ -18,6 +20,15 @@ export * from './dtos/users/create.dto';
 export * from './dtos/users/update.dto';
 export * from './dtos/users/delete.dto';
 export * from './dtos/users/get.dto';
+
+export * from './dtos/directory/create.dto';
+export * from './dtos/directory/update.dto';
+
+export * from './dtos/subDirectory/create.dto';
+export * from './dtos/subDirectory/update.dto';
+
+export * from './dtos/subDirectoryYear/create.dto';
+export * from './dtos/subDirectoryYear/update.dto';
 
 // Utils 
 export * from './utils/field-query.util';
