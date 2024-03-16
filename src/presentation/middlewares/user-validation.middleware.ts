@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { prisma } from '../../configuration/database/index';
-import { Roles, UserEntity } from '../../domain';
+import { Roles, States, UserEntity } from '../../domain';
 import { JwtAdapter } from '../../configuration';
 
 export class UserValidationMiddleware {
@@ -17,6 +17,14 @@ export class UserValidationMiddleware {
         if (!(rol in Roles)) throw new Error("El Rol no es válido");
         
         return rol;
+    }
+
+    static state (value: any): States {
+        const state: States = value;
+    
+        if (!(state in States)) throw new Error("El Estado no es válido");
+        
+        return state;
     }
     
     static async sede (value: any) {
