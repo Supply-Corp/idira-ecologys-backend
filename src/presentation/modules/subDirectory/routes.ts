@@ -2,7 +2,7 @@ import { Router } from "express";
 import { SubDirectoryService } from "./service";
 import { SubDirectoryController } from "./controller";
 
-export class DirectoryRoutes {
+export class SubDirectoryRoutes {
     static get routes(): Router {
         const router = Router();
 
