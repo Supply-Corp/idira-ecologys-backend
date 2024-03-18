@@ -94,7 +94,7 @@ export class SubDirectoryService {
     }
   }
 
-  async list(dto: PaginationDto) {
+  async list(dto: PaginationDto, id: number) {
     const { page, limit, search } = dto;
 
     try {
@@ -104,7 +104,8 @@ export class SubDirectoryService {
           take: limit,
           where: {
             state: "ACTIVE",
-            name: { startsWith: search } 
+            name: { startsWith: search }, 
+            directoryId: id
           },
           include: {
             Directory: true
@@ -114,7 +115,8 @@ export class SubDirectoryService {
         prisma.subDirectory.count({
           where: {
             state: "ACTIVE",
-            name: { startsWith: search } 
+            name: { startsWith: search }, 
+            directoryId: id
           },
         }),
       ]);

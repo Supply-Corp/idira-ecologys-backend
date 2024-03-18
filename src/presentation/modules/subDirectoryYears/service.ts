@@ -94,7 +94,7 @@ export class SubDirectoryYearService {
     }
   }
 
-  async list(dto: PaginationDto) {
+  async list(dto: PaginationDto, id: number) {
     const { page, limit, search } = dto;
 
     try {
@@ -104,7 +104,8 @@ export class SubDirectoryYearService {
           take: limit,
           where: {
             state: "ACTIVE",
-            name: { startsWith: search } 
+            name: { startsWith: search } ,
+            subDirectoryId: id
           },
           include: {
             SubDirectory: true
@@ -114,7 +115,8 @@ export class SubDirectoryYearService {
         prisma.subDirectoryYear.count({
           where: {
             state: "ACTIVE",
-            name: { startsWith: search } 
+            name: { startsWith: search } ,
+            subDirectoryId: id
           },
         }),
       ]);

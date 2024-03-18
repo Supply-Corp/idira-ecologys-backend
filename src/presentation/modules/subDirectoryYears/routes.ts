@@ -9,7 +9,7 @@ export class SubDirectoryYearRoutes {
         const service = new SubDirectoryYearService();
         const controller = new SubDirectoryYearController(service);
 
-        router.get("/", controller.list);
+        router.get("/:subdirectory", controller.list);
         router.post("/", controller.store);
         router.put("/:id", controller.update);
         router.delete("/:id", controller.delete);

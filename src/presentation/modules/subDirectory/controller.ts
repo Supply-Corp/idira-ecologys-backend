@@ -49,8 +49,10 @@ export class SubDirectoryController {
     const [error, dto] = PaginationDto.create(req);
     if (error) return res.status(400).json({ error });
 
+    const id = req.params.id;
+
     this.service
-    .list( dto! )
+    .list( dto!, +id )
     .then((response) => res.send(response))
     .catch((error) => HandleError.handle(error, res));
   };
