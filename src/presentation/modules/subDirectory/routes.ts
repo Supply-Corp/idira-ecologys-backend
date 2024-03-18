@@ -9,7 +9,7 @@ export class SubDirectoryRoutes {
         const service = new SubDirectoryService();
         const controller = new SubDirectoryController(service);
 
-        router.get("/:directory", controller.list);
+        router.get("/directory/:directory", controller.list);
         router.post("/", controller.store);
         router.put("/:id", controller.update);
         router.delete("/:id", controller.delete);
