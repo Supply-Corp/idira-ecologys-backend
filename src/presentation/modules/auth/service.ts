@@ -5,7 +5,10 @@ export class AuthService {
     async login(dto: LoginDto) {
         const { email, password: nPassword } = dto;
 
-        const find = await prisma.user.findFirst({ where: { email } });
+        const find = await prisma.user.findFirst({ 
+            where: { email } ,
+            include: { sede: true }
+        });
         if (!find) throw CustomError.notFound("Email o contraseña invalida");
         if (find.state === "DELETE") throw CustomError.notFound("Email o contraseña invalida");
 
