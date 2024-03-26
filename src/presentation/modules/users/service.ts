@@ -157,7 +157,12 @@ export class UserServices {
 
   async get(dto: GetUserDto) {
     try {
-        const valid =  await prisma.user.findFirst({ where: { id: dto.id } });
+        const valid =  await prisma.user.findUnique({ 
+            where: { id: dto.id },
+            include: {
+                sede: true
+            } 
+        });
         
         if(!valid) throw CustomError.notFound("El usuario no existe");
         if(valid.state === 'DELETE') throw CustomError.notFound("El usuario no existe");

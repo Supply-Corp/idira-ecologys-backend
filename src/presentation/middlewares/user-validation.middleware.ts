@@ -47,7 +47,10 @@ export class UserValidationMiddleware {
             const payload = await JwtAdapter.validateToken<{ id: string }>( token );
             if( !payload ) return res.status(401).json({ error: 'Invalid token' });
 
-            const user = await prisma.user.findFirst({ where: { id: +payload.id } });
+            const user = await prisma.user.findFirst({ 
+                where: { id: +payload.id }, 
+                include: { sede: true }
+            });
             if( !user ) return res.status(401).json({ error: 'Error token validation information.'});
 
             const { password, ...auth } = UserEntity.fromObject( user );
