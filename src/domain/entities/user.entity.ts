@@ -1,3 +1,4 @@
+import { Sedes } from "@prisma/client";
 import { Roles } from "../interfaces/roles";
 import { States } from "../interfaces/states";
 
@@ -10,12 +11,13 @@ export class UserEntity {
         public readonly role: Roles,
         public readonly state: States,
         public readonly sedeId?: number,
+        public readonly sede?: Sedes,
         public readonly createdAt?: Date,
         public readonly updatedAt?: Date,
     ) {}
 
     static fromObject(object: { [key: string]: any }) {
-        const { id, name, email, password, role, state, sedeId, createdAt, updatedAt } = object;
+        const { id, name, email, password, role, state, sedeId, sede, createdAt, updatedAt } = object;
 
         if (!id) throw "missing id";
         if (!name) throw "missing name";
@@ -24,6 +26,6 @@ export class UserEntity {
         if (!role) throw "missing role";
         if (!state) throw "missing state";
 
-        return new UserEntity(id, name, email, password, role, state, sedeId, createdAt, updatedAt);
+        return new UserEntity(id, name, email, password, role, state, sedeId, sede, createdAt, updatedAt);
     }
 }
