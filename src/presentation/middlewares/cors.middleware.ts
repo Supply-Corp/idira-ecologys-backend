@@ -1,7 +1,7 @@
 import cors from "cors";
 
 const ACCEPTED_ORIGINS = [
-  "http://localhost:4200",
+  "http://localhost:5000",
   "https://idira.supplycorp.pe"
 ];
 
